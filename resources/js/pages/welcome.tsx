@@ -119,7 +119,6 @@ export default function Welcome({
                         <div className="relative z-10 mx-auto w-full max-w-[1400px]">
                             <div className="flex flex-col items-start px-2 lg:w-[65%]">
                                 <h2 className="mb-6 flex items-center gap-4 font-sans text-[10px] font-bold tracking-[0.4em] text-amber-400 uppercase sm:text-xs">
-                                    <span className="h-[2px] w-12 bg-amber-400"></span>
                                     Universitas PGRI Madiun
                                 </h2>
                                 <h1 className="mb-8 font-sans text-4xl leading-[1.05] font-extrabold tracking-tighter text-white uppercase md:text-6xl lg:text-[5rem]">
@@ -195,38 +194,25 @@ export default function Welcome({
                                         key={org.id}
                                         className="group relative top-0 flex h-full cursor-pointer flex-col border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-top-2 hover:shadow-2xl"
                                     >
-                                        {/* Placeholder Image Area (Kosongkan Dulu) */}
+                                        {/* Image Area with Conditional Instagram Embed for BEM */}
                                         <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-slate-100">
-                                            <div className="absolute inset-0 z-10 bg-[#002855]/5 transition-colors group-hover:bg-[#002855]/0"></div>
-                                            <span className="font-serif text-sm text-slate-400 italic">
-                                                Image Coming Soon
-                                            </span>
-
-                                            {/* Category Tag with Dynamic Color for ORMAWA vs UKM */}
-                                            <div
-                                                className={`absolute top-4 left-4 z-20 px-3 py-1 font-sans text-[9px] font-bold tracking-widest uppercase ${org.category.includes('Organisasi Tingkat') ? 'bg-indigo-600 text-white' : 'bg-amber-400 text-[#002855]'}`}
-                                            >
-                                                {org.category.includes(
-                                                    'Organisasi Tingkat',
-                                                )
-                                                    ? 'ORMAWA'
-                                                    : 'UKM'}
-                                            </div>
-
-                                            {/* Dummy Recruitment Status - Simulated random logic for demo */}
-                                            {index % 2 === 0 ? (
-                                                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 rounded-sm bg-emerald-500 px-2 py-1 text-white shadow-md">
-                                                    <span className="font-sans text-[8px] font-bold tracking-widest uppercase">
-                                                        Oprec Recruitment
-                                                    </span>
-                                                </div>
+                                            {org.name.toLowerCase().includes('bem') || org.name.toLowerCase().includes('badan eksekutif') ? (
+                                                <iframe
+                                                    src="https://www.instagram.com/p/DUp4jJEEwWc/embed"
+                                                    className="absolute inset-0 h-full w-full border-0"
+                                                    scrolling="no"
+                                                    allowTransparency={true}
+                                                ></iframe>
                                             ) : (
-                                                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 rounded-sm bg-slate-800/80 px-2 py-1 text-white backdrop-blur-sm">
-                                                    <span className="font-sans text-[8px] font-bold tracking-widest uppercase">
-                                                        Close
+                                                <>
+                                                    <div className="absolute inset-0 z-10 bg-[#002855]/5 transition-colors group-hover:bg-[#002855]/0"></div>
+                                                    <span className="font-serif text-sm text-slate-400 italic">
+                                                        Image Coming Soon
                                                     </span>
-                                                </div>
+                                                </>
                                             )}
+
+
                                         </div>
 
                                         {/* Content Area */}

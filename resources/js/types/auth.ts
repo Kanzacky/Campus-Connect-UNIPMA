@@ -2,7 +2,12 @@ export type User = {
     id: number;
     name: string;
     email: string;
+    role: 'admin' | 'pengurus' | 'anggota';
     avatar?: string;
+    nim?: string;
+    jurusan?: string;
+    angkatan?: string;
+    no_hp?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
     created_at: string;
@@ -21,4 +26,9 @@ export type TwoFactorSetupData = {
 
 export type TwoFactorSecretKey = {
     secretKey: string;
+};
+
+export type Flash = {
+    success?: string;
+    error?: string;
 };

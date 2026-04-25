@@ -2,15 +2,47 @@
 
 use App\Models\User;
 
-test('guests are redirected to the login page', function () {
-    $response = $this->get(route('dashboard'));
-    $response->assertRedirect(route('login'));
+test('dashboard redirects admin to admin dashboard', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $response = $this->actingAs($admin)->get('/dashboard');
+
+    $response->assertRedirect(route('admin.dashboard'));
 });
 
-test('authenticated users can visit the dashboard', function () {
-    $user = User::factory()->create();
-    $this->actingAs($user);
+test('dashboard redirects pengurus to pengurus dashboard', function () {
+    $pengurus = User::factory()->create(['role' => 'pengurus']);
 
-    $response = $this->get(route('dashboard'));
-    $response->assertOk();
+    $response = $this->actingAs($pengurus)->get('/dashboard');
+
+    $response->assertRedirect(route('pengurus.dashboard'));
+});
+
+test('dashboard redirects anggota to anggota dashboard', function () {
+    $anggota = User::factory()->create(['role' => 'anggota']);
+
+    $response = $this->actingAs($anggota)->get('/dashboard');
+
+    $response->assertRedirect(route('anggota.dashboard'));
+});
+
+test('role middleware blocks unauthorized access', function () {
+    $anggota = User::factory()->create(['role' => 'anggota']);
+
+    $this->actingAs($anggota)->get('/admin')->assertStatus(403);
+    $this->actingAs($anggota)->get('/pengurus/dashboard')->assertStatus(403);
+});
+
+test('admin dashboard shows statistics', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $response = $this->actingAs($admin)->get('/admin');
+
+    $response->assertStatus(200);
+    $response->assertInertia(fn ($page) => $page
+        ->component('admin/dashboard')
+        ->has('stats')
+        ->has('recentUsers')
+        ->has('recentKegiatan')
+    );
 });

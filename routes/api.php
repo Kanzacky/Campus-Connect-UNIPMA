@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OrganisasiController;
+use App\Models\Organisasi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,12 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\Api\OrganisasiController;
-
 // ==================== PUBLIC ROUTES ====================
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 Route::get('/organisasi', [OrganisasiController::class, 'index'])->name('api.organisasi.index');
-Route::get('/organisasi/{id}', [OrganisasiController::class, 'show'])->name('api.organisasi.show');
+Route::get('/organisasi/{organisasi}', [OrganisasiController::class, 'show'])->name('api.organisasi.show');
 
 // ==================== PROTECTED ROUTES ====================
 Route::middleware('auth:sanctum')->group(function () {
