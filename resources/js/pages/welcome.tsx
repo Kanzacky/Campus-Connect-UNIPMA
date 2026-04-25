@@ -201,7 +201,7 @@ export default function Welcome({
                                                     src="https://www.instagram.com/p/DUp4jJEEwWc/embed"
                                                     className="absolute inset-0 h-full w-full border-0"
                                                     scrolling="no"
-                                                    allowTransparency={true}
+                                                    allowtransparency="true"
                                                 ></iframe>
                                             ) : (
                                                 <>
