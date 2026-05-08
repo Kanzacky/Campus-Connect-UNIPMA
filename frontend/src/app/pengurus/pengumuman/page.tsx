@@ -9,6 +9,7 @@ import { pengurusApi } from '@/lib/api';
 import { Spinner } from '@/components/ui/spinner';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import type { PaginatedResponse, Pengumuman } from '@/types';
 
 const breadcrumbs = [{ title: 'Pengumuman', href: '/pengurus/pengumuman' }];
@@ -18,6 +19,7 @@ export default function PengurusPengumumanPage() {
   const { user, isLoading: authLoading, isAuthenticated } = useAuth();
   const [items, setItems] = useState<Pengumuman[]>([]);
   const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState<number | null>(null);
 
   useEffect(() => {
     if (authLoading) return;
@@ -41,6 +43,19 @@ export default function PengurusPengumumanPage() {
       .finally(() => setLoading(false));
   }, [authLoading, isAuthenticated, user, router]);
 
+  async function handleDelete(id: number) {
+    if (busyId) return;
+    const ok = window.confirm('Hapus pengumuman ini?');
+    if (!ok) return;
+    try {
+      setBusyId(id);
+      await pengurusApi.pengumuman.destroy(id);
+      setItems((prev) => prev.filter((x) => x.id !== id));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
   if (authLoading || loading) {
     return (
       <AppLayout breadcrumbs={breadcrumbs}>
@@ -56,9 +71,14 @@ export default function PengurusPengumumanPage() {
       <div className="flex flex-col gap-4 p-4 md:p-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Pengumuman</h1>
-          <Link href="/pengurus/dashboard" className="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
-            Kembali ke dashboard
-          </Link>
+          <div className="flex items-center gap-2">
+            <Button asChild>
+              <Link href="/pengurus/pengumuman/create">Tambah Pengumuman</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/pengurus/dashboard">Kembali</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -81,6 +101,15 @@ export default function PengurusPengumumanPage() {
                     <span className="font-medium">{new Date(p.created_at).toLocaleDateString('id-ID')}</span>
                   </div>
                   <p className="mt-3 line-clamp-3 text-xs text-zinc-500 dark:text-zinc-400">{p.konten}</p>
+                </div>
+
+                <div className="mt-4 flex items-center justify-end gap-2">
+                  <Button asChild size="sm" variant="outline">
+                    <Link href={`/pengurus/pengumuman/${p.id}/edit`}>Edit</Link>
+                  </Button>
+                  <Button size="sm" variant="destructive" disabled={busyId === p.id} onClick={() => handleDelete(p.id)}>
+                    {busyId === p.id ? 'Menghapus…' : 'Hapus'}
+                  </Button>
                 </div>
               </CardContent>
             </Card>

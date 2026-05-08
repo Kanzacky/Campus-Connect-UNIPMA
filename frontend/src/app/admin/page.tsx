@@ -168,7 +168,7 @@ export default function AdminDashboard() {
                     <div className="mb-4 flex items-center justify-between gap-4">
                         <div>
                             <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">UKM & Organisasi</h3>
-                            <p className="text-xs text-zinc-500 dark:text-zinc-400">Pendaftar pending per organisasi (diambil dari database)</p>
+                            <p className="text-xs text-zinc-500 dark:text-zinc-400">Ringkasan pendaftar pending per organisasi.</p>
                         </div>
                         <Link href="/admin/organisasi" className="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
                             Lihat semua →
@@ -265,10 +265,10 @@ export default function AdminDashboard() {
                         </div>
                     </div>
 
-                    {/* All Users Snapshot */}
+                    {/* All Users */}
                     <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                         <div className="mb-4 flex items-center justify-between gap-4">
-                            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Semua User (snapshot)</h3>
+                            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Semua User</h3>
                             <Link href="/admin/users" className="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
                                 Kelola user →
                             </Link>

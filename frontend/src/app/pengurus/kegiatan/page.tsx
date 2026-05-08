@@ -9,6 +9,7 @@ import { pengurusApi } from '@/lib/api';
 import { Spinner } from '@/components/ui/spinner';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import type { Kegiatan, PaginatedResponse } from '@/types';
 
 const breadcrumbs = [{ title: 'Kegiatan', href: '/pengurus/kegiatan' }];
@@ -18,6 +19,7 @@ export default function PengurusKegiatanPage() {
   const { user, isLoading: authLoading, isAuthenticated } = useAuth();
   const [items, setItems] = useState<Kegiatan[]>([]);
   const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState<number | null>(null);
 
   useEffect(() => {
     if (authLoading) return;
@@ -41,6 +43,19 @@ export default function PengurusKegiatanPage() {
       .finally(() => setLoading(false));
   }, [authLoading, isAuthenticated, user, router]);
 
+  async function handleDelete(id: number) {
+    if (busyId) return;
+    const ok = window.confirm('Hapus kegiatan ini?');
+    if (!ok) return;
+    try {
+      setBusyId(id);
+      await pengurusApi.kegiatan.destroy(id);
+      setItems((prev) => prev.filter((x) => x.id !== id));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
   if (authLoading || loading) {
     return (
       <AppLayout breadcrumbs={breadcrumbs}>
@@ -56,9 +71,14 @@ export default function PengurusKegiatanPage() {
       <div className="flex flex-col gap-4 p-4 md:p-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Kegiatan</h1>
-          <Link href="/pengurus/dashboard" className="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
-            Kembali ke dashboard
-          </Link>
+          <div className="flex items-center gap-2">
+            <Button asChild>
+              <Link href="/pengurus/kegiatan/create">Tambah Kegiatan</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/pengurus/dashboard">Kembali</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,6 +102,15 @@ export default function PengurusKegiatanPage() {
                     <span className="text-zinc-500 dark:text-zinc-400">Mulai</span>
                     <span className="font-medium">{new Date(k.tanggal_mulai).toLocaleDateString('id-ID')}</span>
                   </div>
+                </div>
+
+                <div className="mt-4 flex items-center justify-end gap-2">
+                  <Button asChild size="sm" variant="outline">
+                    <Link href={`/pengurus/kegiatan/${k.id}/edit`}>Edit</Link>
+                  </Button>
+                  <Button size="sm" variant="destructive" disabled={busyId === k.id} onClick={() => handleDelete(k.id)}>
+                    {busyId === k.id ? 'Menghapus…' : 'Hapus'}
+                  </Button>
                 </div>
               </CardContent>
             </Card>

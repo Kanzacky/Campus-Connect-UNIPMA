@@ -1,153 +1,168 @@
 <div align="center">
-  <h1>🚀 Campus-Connect UNIPMA</h1>
-  <p><strong>Platform Manajemen Organisasi dan Kegiatan Mahasiswa Universitas PGRI Madiun (UNIPMA)</strong></p>
-  <p><em>Built with Laravel, React, Inertia.js, and Tailwind CSS</em></p>
+  <h3 align="center">Campus-Connect UNIPMA</h3>
 
-  <!-- Badges -->
-  <img src="https://img.shields.io/badge/Laravel-13.0-FF2D20?style=for-the-badge&logo=laravel" alt="Laravel" />
-  <img src="https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/Inertia.js-3.0-9553E9?style=for-the-badge&logo=inertia" alt="Inertia.js" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/PHP-8.3+-777BB4?style=for-the-badge&logo=php" alt="PHP" />
+  <p align="center">
+    A centralized organization and event management platform for Universitas PGRI Madiun.
+    <br />
+    <a href="https://github.com/Kanzacky/Campus-Connect-UNIPMA"><strong>Explore the repository »</strong></a>
+    <br />
+    <br />
+    <a href="#features">View Features</a>
+    ·
+    <a href="#getting-started">Getting Started</a>
+    ·
+    <a href="#project-structure">Project Structure</a>
+  </p>
 </div>
 
-<br />
+<!-- BADGES -->
+<div align="center">
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel" />
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+</div>
 
-## 📖 Deskripsi Proyek
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#features">Features</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#testing">Testing</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
 
-**Campus-Connect UNIPMA** adalah platform aplikasi web terpadu yang dirancang secara khusus untuk memenuhi kebutuhan ekosistem mahasiswa di **Universitas PGRI Madiun (UNIPMA)**. Aplikasi ini difokuskan untuk mendigitalisasi dan mempermudah sistem manajemen **Organisasi Mahasiswa (Ormawa)**, **Unit Kegiatan Mahasiswa (UKM)**, dan **Badan Eksekutif Mahasiswa (BEM)** di lingkungan kampus UNIPMA.
+## About The Project
 
-Dengan memanfaatkan teknologi web modern (*Single Page Application*), Campus-Connect memastikan mahasiswa, pengurus organisasi, dan pihak administratif kampus dapat berkolaborasi secara real-time, mendaftar organisasi, mengelola kegiatan, serta mempublikasikan pengumuman dengan cepat, aman, dan efisien.
+**Campus-Connect UNIPMA** is a comprehensive campus management ecosystem designed specifically for Universitas PGRI Madiun (UNIPMA). The platform digitalizes the workflow of Student Organizations (Ormawa), Student Activity Units (UKM), and the Student Executive Board (BEM), bridging the communication gap between the campus administration, organization leaders, and the student body.
 
-## 🌟 Fitur Utama & Hak Akses Berdasarkan Peran
+### Architecture
 
-Aplikasi ini dilengkapi dengan sistem berbasis peran (Role-Based Access Control) yang terbagi menjadi tiga tingkatan:
+The project has recently been migrated to a **Headless Architecture**:
+* **Backend (API):** A robust RESTful API built with Laravel, utilizing Laravel Sanctum for secure, stateless token-based authentication.
+* **Frontend (Client):** A highly performant, SEO-friendly Next.js application taking advantage of modern React paradigms and a premium minimalist design language.
 
-### 1. 👑 Administrator (Admin Kampus/Universitas)
-Admin memiliki kontrol penuh terhadap sistem secara keseluruhan untuk memantau aktivitas kemahasiswaan:
-- **Manajemen Pengguna (Users):** Mengelola akun mahasiswa, pengurus, maupun sesama admin (Tambah, Edit, Hapus, Suspend).
-- **Manajemen Organisasi:** Menyetujui pendaftaran UKM/Ormawa baru, menonaktifkan organisasi, dan memantau struktur kepengurusan.
-- **Pusat Informasi Kampus:** Membuat dan menyiarkan **Pengumuman** yang bersifat global/universitas kepada seluruh mahasiswa UNIPMA.
-- **Monitoring Kegiatan:** Mengawasi dan menyetujui setiap program kerja atau **Kegiatan** yang diajukan oleh berbagai organisasi.
+### Built With
 
-### 2. 👔 Pengurus Organisasi (Ketua/Pengurus UKM & Ormawa)
-Mahasiswa yang memiliki mandat sebagai pengurus dalam suatu organisasi memiliki akses ke *Dashboard Pengurus* dengan fitur:
-- **Manajemen Anggota:** Menerima (Approve) atau menolak (Reject) pendaftaran mahasiswa yang ingin bergabung ke UKM/Ormawa mereka, serta mengeluarkan anggota.
-- **Pengumuman Internal:** Membuat pengumuman spesifik yang hanya dapat dibaca oleh anggota organisasi tersebut.
-- **Manajemen Kegiatan (Event Management):** Merencanakan kegiatan, membuka pendaftaran peserta kegiatan, dan mempublikasikan jadwal program kerja UKM/Ormawa.
+* [![Laravel][Laravel.com]][Laravel-url]
+* [![Next.js][Next.js]][Next-url]
+* [![React][React.js]][React-url]
+* [![TailwindCSS][TailwindCSS]][Tailwind-url]
 
-### 3. 🎓 Anggota (Mahasiswa UNIPMA)
-Setiap mahasiswa aktif UNIPMA memiliki akses sebagai anggota dengan fitur berikut:
-- **Eksplorasi Organisasi:** Melihat daftar lengkap Ormawa dan UKM yang ada di UNIPMA beserta profilnya, dan dapat melakukan pendaftaran secara online.
-- **Akses Pengumuman Terpersonalisasi:** Mendapatkan update pengumuman baik dari pihak kampus (Admin) maupun dari organisasi yang mereka ikuti.
-- **Partisipasi Kegiatan:** Melihat kalender kegiatan yang sedang berjalan dan mendaftarkan diri sebagai peserta pada kegiatan-kegiatan mahasiswa.
-- **Dashboard Personal:** Memantau status keanggotaan di berbagai organisasi.
+## Features
 
-## ✨ Fitur Teknis Baru & Modern
+The application is built around a secure Role-Based Access Control (RBAC) system ensuring data integrity and proper authorization boundaries:
 
-- **Modern Tech Stack**: Menggunakan ekosistem terbaru (Laravel 13 & React 19).
-- **Seamless SPA Routing**: Navigasi sisi klien yang sangat cepat tanpa proses *reload* halaman berkat **Inertia.js**.
-- **UI/UX Premium**: Antarmuka dibangun menggunakan komponen **Radix UI** yang responsif dan dapat diakses (Accessible), dihias dengan **Tailwind CSS v4** untuk estetika yang clean dan modern.
-- **Keamanan Tingkat Lanjut**: Terintegrasi dengan **Laravel Fortify & Sanctum** untuk sistem autentikasi dan manajemen sesi yang aman.
-- **Pest PHP Testing**: Menggunakan kerangka pengujian terbaru dan elegan (Pest) untuk memastikan kestabilan kode.
+* **👑 Administrator (University Staff / Admin):**
+  * Global user and organization management.
+  * Approval workflows for student organizations and events.
+  * Broadcasting university-wide announcements.
 
-## 🛠️ Teknologi yang Digunakan
+* **👔 Organization Board (UKM / Ormawa Leaders):**
+  * Manage member registrations (Approve/Reject workflows).
+  * Publish internal announcements for organization members.
+  * Event management, including scheduling and participant tracking.
 
-### Backend
-- [PHP](https://www.php.net/) ^8.3
-- [Laravel Framework](https://laravel.com/) ^13.0
-- [Laravel Fortify](https://laravel.com/docs/fortify) & [Sanctum](https://laravel.com/docs/sanctum)
-- Database: SQLite (default) / MySQL / PostgreSQL
+* **🎓 Members (Students):**
+  * Explore and enroll in various student organizations.
+  * Stay updated with personalized announcements.
+  * Participate in and register for campus events.
 
-### Frontend
-- [React](https://react.dev/) ^19.2.0
-- [Inertia.js](https://inertiajs.com/) ^3.0
-- [Vite](https://vitejs.dev/) ^8.0
-- [Tailwind CSS](https://tailwindcss.com/) ^4.0
-- [Radix UI](https://www.radix-ui.com/) & [Lucide React](https://lucide.dev/) (Icons)
+## Getting Started
 
-## 📋 Prasyarat Sistem
+Follow these instructions to set up the project locally.
 
-Sebelum melakukan instalasi, pastikan sistem Anda telah memiliki perangkat lunak berikut:
-- **PHP** >= 8.3
-- **Composer** (Dependency Manager PHP)
-- **Node.js** (LTS terbaru direkomendasikan) dan **npm**
-- **Git**
+### Prerequisites
 
-## 🚀 Instalasi & Menjalankan Proyek (Development)
+* PHP >= 8.2
+* Composer
+* Node.js >= 18.x
+* npm, yarn, or pnpm
 
-Berikut adalah langkah-langkah untuk menjalankan Campus-Connect UNIPMA di mesin lokal:
+### Installation
 
-### 1. Kloning Repositori
-```bash
-git clone <url-repositori-anda>
-cd campus-connect
+Since the project uses a decoupled architecture, you need to set up the backend and frontend in separate processes.
+
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/Kanzacky/Campus-Connect-UNIPMA.git
+   cd Campus-Connect-UNIPMA
+   ```
+
+2. **Backend Setup (Laravel API)**
+   ```sh
+   cd backend
+   composer install
+   cp .env.example .env
+   php artisan key:generate
+   php artisan migrate --seed
+   php artisan serve
+   ```
+   *The API will be available at `http://localhost:8000`*
+
+3. **Frontend Setup (Next.js)**
+   Open a new terminal window:
+   ```sh
+   cd frontend
+   npm install
+   # Ensure your .env file has the correct API URL
+   # e.g., NEXT_PUBLIC_API_URL=http://localhost:8000
+   npm run dev
+   ```
+   *The client application will be available at `http://localhost:3000`*
+
+## Project Structure
+
+```text
+Campus-Connect-UNIPMA/
+├── backend/                # Laravel API source code
+│   ├── app/                # Controllers, Models, Middleware
+│   ├── routes/             # API routes (api.php)
+│   └── tests/              # Pest PHP test suites
+└── frontend/               # Next.js web application
+    ├── src/
+    │   ├── app/            # Next.js App Router (Pages & Layouts)
+    │   ├── components/     # Reusable React components
+    │   └── lib/            # Utilities and API clients
+    └── public/             # Static assets
 ```
 
-### 2. Instalasi Dependensi Backend (PHP)
-```bash
-composer install
-```
+## Testing
 
-### 3. Persiapan Environment
-Salin file konfigurasi lingkungan:
-```bash
-cp .env.example .env
-```
+The backend is fully tested using **Pest PHP**. To run the test suite:
 
-### 4. Generate Application Key
-```bash
-php artisan key:generate
-```
-
-### 5. Konfigurasi & Migrasi Database
-Aplikasi ini secara default dikonfigurasi menggunakan SQLite untuk mempermudah pengembangan awal:
-```bash
-php artisan migrate --seed
-```
-*(Tambahkan `--seed` jika Anda memiliki data dummy untuk Admin/User, jika ditanya untuk membuat file `database.sqlite`, pilih **Yes**).*
-
-### 6. Instalasi Dependensi Frontend (Node.js)
-```bash
-npm install
-```
-
----
-
-## 💻 Menjalankan Server Development
-
-Untuk mulai mengembangkan dan menjalankan aplikasi lokal dengan fitur *Hot-Reload* (HMR), jalankan perintah berikut:
-
-```bash
-npm run dev
-```
-
-Atau jalankan secara terpisah pada dua jendela terminal:
-
-**Terminal 1 (Backend - Laravel):**
-```bash
-php artisan serve
-```
-
-**Terminal 2 (Frontend - Vite/React):**
-```bash
-npm run dev
-```
-
-Aplikasi kini dapat diakses melalui web browser pada: **[http://localhost:8000](http://localhost:8000)**
-
-## 🧪 Pengujian (Testing)
-
-Proyek ini telah dikonfigurasi dengan menggunakan **Pest PHP** untuk *Feature* dan *Unit Testing*. Untuk menjalankan pengujian:
-
-```bash
-composer test
-```
-atau
-```bash
+```sh
+cd backend
 php artisan test
 ```
 
-## 📜 Lisensi
+## License
 
-Aplikasi ini dilisensikan secara *open-source* di bawah [MIT License](https://opensource.org/licenses/MIT).
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[TailwindCSS]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind-url]: https://tailwindcss.com/

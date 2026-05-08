@@ -7,6 +7,7 @@ import AppLayout from '@/layouts/app-layout';
 import { useAuth } from '@/hooks/use-auth';
 import { adminApi } from '@/lib/api';
 import { Spinner } from '@/components/ui/spinner';
+import { Button } from '@/components/ui/button';
 
 type UserRow = {
   id: number;
@@ -35,6 +36,7 @@ export default function AdminUsersClient() {
   const page = useMemo(() => Number(searchParams.get('page') || '1'), [searchParams]);
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<Paginated<UserRow> | null>(null);
+  const [busyId, setBusyId] = useState<number | null>(null);
 
   useEffect(() => {
     if (authLoading) return;
@@ -67,11 +69,16 @@ export default function AdminUsersClient() {
         <div className="flex items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Semua User</h1>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Diambil dari database via endpoint admin.</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">Kelola seluruh akun pengguna.</p>
           </div>
-          <Link href="/admin" className="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
-            Kembali ke dashboard
-          </Link>
+          <div className="flex items-center gap-2">
+            <Button asChild>
+              <Link href="/admin/users/create">Tambah User</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/admin">Kembali</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
@@ -83,6 +90,7 @@ export default function AdminUsersClient() {
                   <th className="py-3 text-left font-medium text-zinc-500 dark:text-zinc-400">Role</th>
                   <th className="py-3 text-left font-medium text-zinc-500 dark:text-zinc-400">NIM</th>
                   <th className="py-3 text-left font-medium text-zinc-500 dark:text-zinc-400">Tanggal daftar</th>
+                  <th className="py-3 text-right font-medium text-zinc-500 dark:text-zinc-400">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -97,11 +105,37 @@ export default function AdminUsersClient() {
                     <td className="py-3 capitalize text-zinc-700 dark:text-zinc-300">{u.role}</td>
                     <td className="py-3 text-zinc-600 dark:text-zinc-400">{u.nim || '-'}</td>
                     <td className="py-3 text-zinc-600 dark:text-zinc-400">{new Date(u.created_at).toLocaleDateString('id-ID')}</td>
+                    <td className="py-3 text-right">
+                      <div className="inline-flex items-center gap-2">
+                        <Button asChild size="sm" variant="outline">
+                          <Link href={`/admin/users/${u.id}/edit`}>Edit</Link>
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          disabled={busyId === u.id}
+                          onClick={async () => {
+                            if (busyId) return;
+                            const ok = window.confirm('Hapus user ini?');
+                            if (!ok) return;
+                            try {
+                              setBusyId(u.id);
+                              await adminApi.users.destroy(u.id);
+                              setUsers((prev) => (prev ? { ...prev, data: prev.data.filter((x) => x.id !== u.id) } : prev));
+                            } finally {
+                              setBusyId(null);
+                            }
+                          }}
+                        >
+                          {busyId === u.id ? '...' : 'Hapus'}
+                        </Button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
                 {!users || users.data.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="py-10 text-center text-zinc-400">
+                    <td colSpan={5} className="py-10 text-center text-zinc-400">
                       Belum ada user.
                     </td>
                   </tr>

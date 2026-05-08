@@ -71,7 +71,28 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10 font-sans">
+        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10 font-sans relative">
+            <Link 
+                href="/" 
+                className="absolute left-6 top-6 flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-muted-foreground uppercase transition-colors hover:text-[#002855] md:left-10 md:top-10"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-arrow-left"
+                >
+                    <path d="m12 19-7-7 7-7" />
+                    <path d="M19 12H5" />
+                </svg>
+                Kembali
+            </Link>
             <div className="w-full max-w-sm">
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">
@@ -130,7 +151,7 @@ export default function RegisterPage() {
                                     required
                                     tabIndex={2}
                                     autoComplete="email"
-                                    placeholder="email@example.com"
+                                    placeholder="email@unipma.ac.id"
                                 />
                                 <InputError message={errors.email} />
                             </div>

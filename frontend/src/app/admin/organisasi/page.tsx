@@ -9,6 +9,7 @@ import { adminApi } from '@/lib/api';
 import { Spinner } from '@/components/ui/spinner';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import type { Organisasi, PaginatedResponse } from '@/types';
 
 const breadcrumbs = [{ title: 'Organisasi', href: '/admin/organisasi' }];
@@ -18,6 +19,7 @@ export default function AdminOrganisasiPage() {
   const { user, isLoading: authLoading, isAuthenticated } = useAuth();
   const [items, setItems] = useState<Organisasi[]>([]);
   const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState<number | null>(null);
 
   useEffect(() => {
     if (authLoading) return;
@@ -41,6 +43,19 @@ export default function AdminOrganisasiPage() {
       .finally(() => setLoading(false));
   }, [authLoading, isAuthenticated, user, router]);
 
+  async function handleDelete(id: number) {
+    if (busyId) return;
+    const ok = window.confirm('Hapus organisasi ini?');
+    if (!ok) return;
+    try {
+      setBusyId(id);
+      await adminApi.organisasi.destroy(id);
+      setItems((prev) => prev.filter((x) => x.id !== id));
+    } finally {
+      setBusyId(null);
+    }
+  }
+
   if (authLoading || loading) {
     return (
       <AppLayout breadcrumbs={breadcrumbs}>
@@ -56,9 +71,14 @@ export default function AdminOrganisasiPage() {
       <div className="flex flex-col gap-4 p-4 md:p-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Organisasi</h1>
-          <Link href="/admin" className="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
-            Kembali ke dashboard
-          </Link>
+          <div className="flex items-center gap-2">
+            <Button asChild variant="default">
+              <Link href="/admin/organisasi/create">Tambah Organisasi</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/admin">Kembali</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,6 +102,20 @@ export default function AdminOrganisasiPage() {
                     <span className="text-zinc-500 dark:text-zinc-400">Ketua</span>
                     <span className="font-medium">{org.ketua}</span>
                   </div>
+                </div>
+
+                <div className="mt-4 flex items-center justify-end gap-2">
+                  <Button asChild size="sm" variant="outline">
+                    <Link href={`/admin/organisasi/${org.id}/edit`}>Edit</Link>
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    disabled={busyId === org.id}
+                    onClick={() => handleDelete(org.id)}
+                  >
+                    {busyId === org.id ? 'Menghapus…' : 'Hapus'}
+                  </Button>
                 </div>
               </CardContent>
             </Card>
